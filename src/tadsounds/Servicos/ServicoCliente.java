@@ -8,6 +8,8 @@ import tadsounds.Exceptions.DataSourceException;
 import tadsounds.Mocks.MockCliente;
 import tadsounds.Validadores.ValidadorCliente;
 
+
+
 public class ServicoCliente {
 
     public static void cadastrarCliente(Cliente cliente) throws ClienteException, DataSourceException {

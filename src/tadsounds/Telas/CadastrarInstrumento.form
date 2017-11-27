@@ -159,7 +159,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Quantidade:"/>
+            <Property name="text" type="java.lang.String" value="Estoque:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">

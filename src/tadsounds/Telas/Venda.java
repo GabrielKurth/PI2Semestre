@@ -115,7 +115,16 @@ public class Venda extends javax.swing.JInternalFrame {
             new String [] {
                 "Id", "Nome", "CPF", "E-mail"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaClientes.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabelaClientes);
 
         botaoSelecionar.setText("Selecionar");
@@ -170,7 +179,16 @@ public class Venda extends javax.swing.JInternalFrame {
             new String [] {
                 "Id", "Instrumento", "Estoque", "Preço"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaInstrumentos.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tabelaInstrumentos);
 
         botaoPesquisarInstrumento.setText("Pesquisar");
@@ -252,7 +270,16 @@ public class Venda extends javax.swing.JInternalFrame {
             new String [] {
                 "Id", "Instrumento", "Quantidade", "Preço", "Subtotal"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaCarrinho.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(tabelaCarrinho);
 
         botaoAlterarQtde.setText("Alterar Quantidade");
@@ -399,17 +426,21 @@ public class Venda extends javax.swing.JInternalFrame {
                             .addComponent(botaoCalculaTroco))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addComponent(botaoFinalizar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelTotal))))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(62, 62, 62)
+                                        .addComponent(botaoFinalizar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel7)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,7 +452,7 @@ public class Venda extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel7)
-                                .addGap(5, 5, 5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
                                     .addComponent(labelTotal))
@@ -535,8 +566,9 @@ public class Venda extends javax.swing.JInternalFrame {
                             JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-
+                
                 Object[] rowObj = new Object[5];
+                DecimalFormat doisForm = new DecimalFormat("#.##");
                 float subtotal = instrumento.getPreco() * qtdeInstrumento;
                 rowObj[0] = instrumento.getId();
                 rowObj[1] = instrumento.getNome();

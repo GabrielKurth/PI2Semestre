@@ -146,7 +146,7 @@ public class ConsultarInstrumento extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Marca", "Quantidade", "Preço"
+                "Id", "Nome", "Marca", "Estoque", "Preço"
             }
         ) {
             boolean[] canEdit = new boolean [] {

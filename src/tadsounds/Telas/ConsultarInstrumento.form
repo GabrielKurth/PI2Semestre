@@ -123,7 +123,7 @@
                 <Column editable="false" title="Id" type="java.lang.Object"/>
                 <Column editable="false" title="Nome" type="java.lang.Object"/>
                 <Column editable="false" title="Marca" type="java.lang.Object"/>
-                <Column editable="false" title="Quantidade" type="java.lang.Object"/>
+                <Column editable="false" title="Estoque" type="java.lang.Object"/>
                 <Column editable="false" title="Pre&#xe7;o" type="java.lang.Object"/>
               </Table>
             </Property>

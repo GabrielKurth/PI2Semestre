@@ -136,7 +136,6 @@ public class ServicoVenda {
             String total = labelTotal.getText().replaceAll(",", ".");
             float totalVenda = Float.parseFloat(total);
             troco = recebido - totalVenda;
-            System.out.println(troco);
         } catch (Exception ex) {
 
         }

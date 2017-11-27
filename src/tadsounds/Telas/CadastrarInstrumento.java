@@ -67,7 +67,7 @@ public class CadastrarInstrumento extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Marca:");
 
-        jLabel5.setText("Quantidade:");
+        jLabel5.setText("Estoque:");
 
         jLabel6.setText("Preço:");
 

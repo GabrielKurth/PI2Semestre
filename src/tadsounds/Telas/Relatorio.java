@@ -5,6 +5,7 @@
  */
 package tadsounds.Telas;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -141,6 +142,7 @@ public class Relatorio extends javax.swing.JInternalFrame {
             modelRelatorio.setRowCount(0);
 
             float total = 0;
+            DecimalFormat doisForm = new DecimalFormat("#.##");
 
             for (Venda venda : listaRelatorio) {
                 Cliente clienteVenda = venda.getCliente();
@@ -168,9 +170,10 @@ public class Relatorio extends javax.swing.JInternalFrame {
 
                 Object[] linhaOutros = new Object[8];
                 SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+                
                 linhaOutros[5] = venda.getFormaPagamento();
                 linhaOutros[6] = formatador.format(venda.getDate());
-                linhaOutros[7] = venda.getTotal();
+                linhaOutros[7] = doisForm.format(venda.getTotal());
                 total += venda.getTotal();
                 modelRelatorio.addRow(linhaOutros);
 
@@ -179,7 +182,7 @@ public class Relatorio extends javax.swing.JInternalFrame {
             }
             Object[] linhaTotal = new Object[8];
             linhaTotal[0] = "Valor total";
-            linhaTotal[7] = total;
+            linhaTotal[7] = doisForm.format(total);
             modelRelatorio.addRow(linhaTotal);
 
         } catch (Exception ex) {
