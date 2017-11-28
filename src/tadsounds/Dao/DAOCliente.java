@@ -14,8 +14,6 @@ import tadsounds.UtilidadesBD.Conexao;
 public class DAOCliente {
 
     public static void inserir(Cliente cliente) throws SQLException, Exception {
-        int id = cliente.getId();
-        cliente.setId(id++);
         String sql = "INSERT INTO Cliente(Nome, Cpf, Sexo, DataNascimento, EstadoCivil, Endereco, Numero,"
                 + " Bairro, Cidade, Estado, Email, Telefone, Ativo)"
                 + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -47,7 +45,6 @@ public class DAOCliente {
                 connection.close();
             }
         }
-
     }
 
     public static List<Cliente> listar() throws SQLException, Exception {

@@ -1,6 +1,7 @@
 package tadsounds.Servicos;
 
 import java.util.List;
+import tadsounds.Dao.DAOInstrumento;
 import tadsounds.Models.Instrumento;
 import tadsounds.Exceptions.DataSourceException;
 import tadsounds.Exceptions.InstrumentoException;
@@ -15,7 +16,7 @@ public class ServicoInstrumento {
         ValidadorInstrumento.validar(instrumento);
 
         try {
-            MockInstrumento.inserir(instrumento);
+            DAOInstrumento.inserir(instrumento);
         } catch (Exception e) {
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de dados", e);
@@ -28,7 +29,7 @@ public class ServicoInstrumento {
         ValidadorInstrumento.validar(instrumento);
 
         try {
-            MockInstrumento.atualizar(instrumento);
+            DAOInstrumento.atualizar(instrumento);
             return;
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,9 +41,9 @@ public class ServicoInstrumento {
             throws InstrumentoException, DataSourceException {
         try {
             if (valor == null) {
-                return MockInstrumento.listar();
+                return DAOInstrumento.listar();
             } else {
-                return MockInstrumento.procurar(valor);
+                return DAOInstrumento.procurar(valor);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,7 +54,7 @@ public class ServicoInstrumento {
     public static Instrumento obterInstrumento(Integer id)
             throws InstrumentoException, DataSourceException {
         try {
-            return MockInstrumento.obter(id);
+            return DAOInstrumento.obter(id);
         } catch (Exception e) {
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de dados", e);
@@ -64,7 +65,7 @@ public class ServicoInstrumento {
             throws InstrumentoException, DataSourceException {
         try {
             //Solicita ao DAO a exclusão do quarto informado
-            MockInstrumento.excluir(id);
+            DAOInstrumento.excluir(id);
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
             //uma exceção e uma mensagem amigável a camada de visão
