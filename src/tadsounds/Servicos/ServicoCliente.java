@@ -36,7 +36,7 @@ public class ServicoCliente {
     public static void atualizarCliente(Cliente cliente) throws ClienteException, DataSourceException {
         ValidadorCliente.validar(cliente);
         try {
-            MockCliente.atualizar(cliente);
+            DAOCliente.atualizar(cliente);
             return;
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class ServicoCliente {
 
     public static Cliente obterCliente(Integer id) throws ClienteException, DataSourceException {
         try {
-            return MockCliente.obter(id);
+            return DAOCliente.obter(id);
         } catch (Exception e) {
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de dados ", e);
@@ -55,7 +55,7 @@ public class ServicoCliente {
 
     public static void excluirCliente(Integer id) throws ClienteException, DataSourceException {
         try {
-            MockCliente.excluir(id);
+            DAOCliente.excluir(id);
         } catch (Exception e) {
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de dados ", e);
