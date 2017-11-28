@@ -8,8 +8,6 @@ import tadsounds.Exceptions.DataSourceException;
 import tadsounds.Mocks.MockCliente;
 import tadsounds.Validadores.ValidadorCliente;
 
-
-
 public class ServicoCliente {
 
     public static void cadastrarCliente(Cliente cliente) throws ClienteException, DataSourceException {
@@ -25,7 +23,7 @@ public class ServicoCliente {
     public static List<Cliente> procurarCliente(String nome) throws ClienteException, DataSourceException {
         try {
             if (nome == null || "".equals(nome)) {
-                return MockCliente.listar();
+                return DAOCliente.listar();
             } else {
                 return MockCliente.procurar(nome);
             }
