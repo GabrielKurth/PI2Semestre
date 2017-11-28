@@ -170,10 +170,11 @@ public class Relatorio extends javax.swing.JInternalFrame {
 
                 Object[] linhaOutros = new Object[8];
                 SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+                String valorTotalVenda = ServicoVenda.converterValor(venda.getTotal());
                 
                 linhaOutros[5] = venda.getFormaPagamento();
                 linhaOutros[6] = formatador.format(venda.getDate());
-                linhaOutros[7] = doisForm.format(venda.getTotal());
+                linhaOutros[7] = valorTotalVenda;
                 total += venda.getTotal();
                 modelRelatorio.addRow(linhaOutros);
 
@@ -181,8 +182,9 @@ public class Relatorio extends javax.swing.JInternalFrame {
                 modelRelatorio.addRow(linhaBranca);
             }
             Object[] linhaTotal = new Object[8];
+            String valorTotal = ServicoVenda.converterValor(total);
             linhaTotal[0] = "Valor total";
-            linhaTotal[7] = doisForm.format(total);
+            linhaTotal[7] = valorTotal;
             modelRelatorio.addRow(linhaTotal);
 
         } catch (Exception ex) {

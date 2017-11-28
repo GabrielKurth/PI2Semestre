@@ -6,9 +6,11 @@
 package tadsounds.Telas;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +22,7 @@ import tadsounds.Exceptions.InstrumentoException;
 import tadsounds.Servicos.ServicoCliente;
 import tadsounds.Servicos.ServicoInstrumento;
 import tadsounds.Servicos.ServicoVenda;
+import static tadsounds.Servicos.ServicoVenda.converterMoeda;
 
 /**
  *
@@ -80,14 +83,11 @@ public class Venda extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tabelaCarrinho = new javax.swing.JTable();
         botaoAlterarQtde = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         comboPagamento = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         fieldRecebido = new javax.swing.JTextField();
         labelTroco = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -247,8 +247,8 @@ public class Venda extends javax.swing.JInternalFrame {
             }
         });
 
-        labelTotal.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
-        labelTotal.setText("00,00");
+        labelTotal.setFont(new java.awt.Font("Arial", 0, 30)); // NOI18N
+        labelTotal.setText("R$ 00,00");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Carrinho"));
 
@@ -326,30 +326,21 @@ public class Venda extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
-        jLabel2.setText("R$");
-
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Pagamento"));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Forma de Pagamento");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Recebido");
+        jLabel9.setText("Valor Recebido");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Troco");
 
         comboPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE", "Dinheiro", "Débito", "Crédito" }));
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel11.setText("R$");
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel13.setText("R$");
-
         labelTroco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelTroco.setText("00,00");
+        labelTroco.setText("R$ 00,00");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -363,18 +354,12 @@ public class Venda extends javax.swing.JInternalFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fieldRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                    .addComponent(fieldRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelTroco)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labelTroco))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,16 +371,13 @@ public class Venda extends javax.swing.JInternalFrame {
                             .addComponent(jLabel6)
                             .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11)
-                            .addComponent(fieldRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(comboPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(labelTroco))))
+                            .addComponent(labelTroco)
+                            .addComponent(fieldRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -421,26 +403,25 @@ public class Venda extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botaoCalculaTroco))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(62, 62, 62)
-                                        .addComponent(botaoFinalizar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel7)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
+                                        .addComponent(jLabel7)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botaoFinalizar)
+                                .addGap(18, 18, 18))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -453,9 +434,7 @@ public class Venda extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(labelTotal))
+                                .addComponent(labelTotal)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botaoFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -467,7 +446,7 @@ public class Venda extends javax.swing.JInternalFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -566,15 +545,17 @@ public class Venda extends javax.swing.JInternalFrame {
                             JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                
+
                 Object[] rowObj = new Object[5];
-                DecimalFormat doisForm = new DecimalFormat("#.##");
                 float subtotal = instrumento.getPreco() * qtdeInstrumento;
+                NumberFormat formatadorReal = NumberFormat.getCurrencyInstance();
+                String precoInstrumento = formatadorReal.format(instrumento.getPreco());
+                String valorSubtotal = formatadorReal.format(subtotal);
                 rowObj[0] = instrumento.getId();
                 rowObj[1] = instrumento.getNome();
                 rowObj[2] = qtdeInstrumento;
-                rowObj[3] = instrumento.getPreco();
-                rowObj[4] = subtotal;
+                rowObj[3] = precoInstrumento;
+                rowObj[4] = valorSubtotal;
                 tabelaCarrinhoModel.addRow(rowObj);
 
                 ServicoVenda.atualizarTotalLabel(tabelaCarrinhoModel, tabelaCarrinho, labelTotal);
@@ -621,8 +602,9 @@ public class Venda extends javax.swing.JInternalFrame {
                         itemCarrinho.setInstrumento(instrumento);
                         itemCarrinho.setQuantidade(
                                 (Integer) tabelaCarrinhoModel.getValueAt(i, 2));
-                        itemCarrinho.setSubtotal((Float) tabelaCarrinhoModel.getValueAt(i, 4));
-                        totalVenda += ((Float) tabelaCarrinhoModel.getValueAt(i, 4));
+                        float subtotal = converterMoeda(tabelaCarrinhoModel, i, 4);
+                        itemCarrinho.setSubtotal(subtotal);
+                        totalVenda = ServicoVenda.atualizarTotalLabel(tabelaCarrinhoModel, tabelaCarrinho, labelTotal);
                         venda.getCarrinho().add(itemCarrinho);
                         venda.setTotal(totalVenda);
                         instrumento.setQuantidade(instrumento.getQuantidade()
@@ -659,7 +641,7 @@ public class Venda extends javax.swing.JInternalFrame {
 
             ServicoVenda.fazerVenda(venda);
             ServicoVenda.limpaTabelaVendas(labelCliente, tabelaCarrinhoModel, fieldNome,
-                    tabelaClienteModel, comboPagamento,fieldRecebido, labelTroco);
+                    tabelaClienteModel, comboPagamento, fieldRecebido, labelTroco);
             ServicoVenda.atualizarTotalLabel(tabelaCarrinhoModel, tabelaCarrinho, labelTotal);
             labelTotal.setText("00,00");
         } catch (Exception e) {
@@ -679,8 +661,8 @@ public class Venda extends javax.swing.JInternalFrame {
                         "Exclusão",
                         JOptionPane.INFORMATION_MESSAGE);
                 if (opcao == JOptionPane.YES_OPTION) {
-                tabelaCarrinhoModel.removeRow(tabelaRemover);
-                ServicoVenda.atualizarTotalLabel(tabelaCarrinhoModel, tabelaCarrinho, labelTotal);
+                    tabelaCarrinhoModel.removeRow(tabelaRemover);
+                    ServicoVenda.atualizarTotalLabel(tabelaCarrinhoModel, tabelaCarrinho, labelTotal);
                 }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Item não selecionado!",
@@ -708,7 +690,9 @@ public class Venda extends javax.swing.JInternalFrame {
                 if (novaQtde <= qtdeEmEstoque) {
                     tabelaCarrinhoModel.setValueAt(novaQtde, tabelaQtdAlterar, 2);
                     float subtotal = instrumento.getPreco() * novaQtde;
-                    tabelaCarrinhoModel.setValueAt(subtotal, tabelaQtdAlterar, 4);
+                    NumberFormat formatadorReal = NumberFormat.getCurrencyInstance();
+                    String valor = formatadorReal.format(subtotal);
+                    tabelaCarrinhoModel.setValueAt(valor, tabelaQtdAlterar, 4);
                     ServicoVenda.atualizarTotalLabel(tabelaCarrinhoModel, tabelaCarrinho, labelTotal);
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Quantidade solicitada "
@@ -730,19 +714,24 @@ public class Venda extends javax.swing.JInternalFrame {
     private void botaoCalculaTrocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCalculaTrocoActionPerformed
         try {
             DecimalFormat doisForm = new DecimalFormat("#.##");
-            float troco = ServicoVenda.calcularTroco(fieldRecebido,labelTotal);
+            NumberFormat formatadorReal = NumberFormat.getCurrencyInstance();
+            float troco = ServicoVenda.calcularTroco(fieldRecebido, labelTotal);
             float recebido = Float.parseFloat(fieldRecebido.getText().replaceAll(",", "."));
-            float totalVenda = Float.parseFloat(labelTotal.getText().replaceAll(",", "."));
+            String total = labelTotal.getText();
+            String valorConvertido = DecimalFormat.getCurrencyInstance(Locale.getDefault()).parse(total).toString();
+            float totalLabel = Float.parseFloat(valorConvertido);
+            //float totalVenda = Float.parseFloat(labelTotal.getText().replaceAll(",", "."));
             if (fieldRecebido == null || troco < 0) {
                 JOptionPane.showMessageDialog(rootPane, "Valor recebido "
                         + "inválido!", "Valor Recebido",
                         JOptionPane.ERROR_MESSAGE);
-            } else if (recebido < totalVenda) {
+            } else if (recebido < totalLabel) {
                 JOptionPane.showMessageDialog(rootPane, "Valor recebido "
                         + "menor do que o total da venda!", "Valor Recebido",
                         JOptionPane.ERROR_MESSAGE);
             } else {
-                labelTroco.setText(String.valueOf(doisForm.format(troco)));
+                String valorTroco = formatadorReal.format(troco);
+                labelTroco.setText(valorTroco);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, "Valor recebido "
@@ -760,12 +749,14 @@ public class Venda extends javax.swing.JInternalFrame {
         }
         for (int i = 0; i < resultado.size(); i++) {
             Instrumento instrumento = resultado.get(i);
+            NumberFormat formatadorReal = NumberFormat.getCurrencyInstance();
+            String precoInstrumento = formatadorReal.format(instrumento.getPreco());
             if (instrumento != null) {
                 Object[] row = new Object[4];
                 row[0] = instrumento.getId();
                 row[1] = instrumento.getNome();
                 row[2] = instrumento.getQuantidade();
-                row[3] = instrumento.getPreco();
+                row[3] = precoInstrumento;
                 model.addRow(row);
             }
         }
@@ -810,9 +801,6 @@ public class Venda extends javax.swing.JInternalFrame {
     private javax.swing.JTextField fieldRecebido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;

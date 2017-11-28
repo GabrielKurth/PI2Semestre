@@ -1,9 +1,11 @@
 package tadsounds.Servicos;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -71,21 +73,24 @@ public class ServicoVenda {
         return clienteSelecionado;
     }
 
-    public static void atualizarTotalLabel(DefaultTableModel tabelaCarrinhoModel,
+    public static float atualizarTotalLabel(DefaultTableModel tabelaCarrinhoModel,
             JTable tabelaCarrinho, JLabel labelTotal) {
-        DecimalFormat doisForm = new DecimalFormat("#.##");
+        NumberFormat formatadorReal = NumberFormat.getCurrencyInstance();
         float totalLabel = 0;
+        String preco = "";
         try {
             for (int i = 0; i < tabelaCarrinhoModel.getRowCount(); i++) {
                 if (tabelaCarrinho.getValueAt(i, 0) != null) {
-                    totalLabel += ((Float) tabelaCarrinhoModel.getValueAt(i, 4));
+                    float subtotal = converterMoeda(tabelaCarrinhoModel, i, 4);
+                    totalLabel += subtotal;
                 }
+                preco = formatadorReal.format(totalLabel);
             }
-
-            labelTotal.setText(String.valueOf(doisForm.format(totalLabel)));
+            labelTotal.setText(preco);
         } catch (Exception e) {
             System.out.println("erro");
         }
+        return totalLabel;
     }
 
     public static void limpaTabelaInstrumento(JTextField field, DefaultTableModel tabelaInstrModel) {
@@ -93,8 +98,31 @@ public class ServicoVenda {
         tabelaInstrModel.setRowCount(0);
     }
 
+    public static float converterMoeda(DefaultTableModel tabelaCarrinhoModel, int coluna, int linha) {
+        float valor = 0;
+        try {
+            String valorMoeda = (String) tabelaCarrinhoModel.getValueAt(coluna, linha);
+            String valorConvertido = DecimalFormat.getCurrencyInstance(Locale.getDefault()).parse(valorMoeda).toString();
+            valor = Float.parseFloat(valorConvertido);
+        } catch (Exception ex) {
+
+        }
+        return valor;
+    }
+
+    public static String converterValor(float valor) {
+        String moeda = "";
+        try {
+            NumberFormat formatadorReal = NumberFormat.getCurrencyInstance();
+            moeda = formatadorReal.format(valor);
+        } catch (Exception ex) {
+
+        }
+        return moeda;
+    }
+
     public static void limpaTabelaVendas(JLabel labelCliente, DefaultTableModel tabelaCarrinhoModel,
-            JTextField fieldCliente, DefaultTableModel tabelaClienteModel, JComboBox formaPagamento, 
+            JTextField fieldCliente, DefaultTableModel tabelaClienteModel, JComboBox formaPagamento,
             JTextField fieldRecebido, JLabel labelTroco) {
         labelCliente.setText("");
         tabelaCarrinhoModel.setRowCount(0);
@@ -127,15 +155,16 @@ public class ServicoVenda {
         }
         return vendasPeriodo;
     }
-    
+
     public static float calcularTroco(JTextField fieldRecebido, JLabel labelTotal) {
         float troco = 0;
         try {
+            String totalLabel = labelTotal.getText();
+            String valorConvertido = DecimalFormat.getCurrencyInstance(Locale.getDefault()).parse(totalLabel).toString();
+            float valorTotal = Float.parseFloat(valorConvertido);
             String receb = fieldRecebido.getText().replaceAll(",", ".");
             float recebido = Float.parseFloat(receb);
-            String total = labelTotal.getText().replaceAll(",", ".");
-            float totalVenda = Float.parseFloat(total);
-            troco = recebido - totalVenda;
+            troco = recebido - valorTotal;
         } catch (Exception ex) {
 
         }
@@ -143,3 +172,4 @@ public class ServicoVenda {
     }
 
 }
+

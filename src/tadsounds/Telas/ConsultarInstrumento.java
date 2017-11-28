@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import tadsounds.Models.Instrumento;
 import tadsounds.Exceptions.InstrumentoException;
 import tadsounds.Servicos.ServicoInstrumento;
+import tadsounds.Servicos.ServicoVenda;
 
 public class ConsultarInstrumento extends javax.swing.JInternalFrame {
 
@@ -37,13 +38,14 @@ public class ConsultarInstrumento extends javax.swing.JInternalFrame {
 
         for (int i = 0; i < resultado.size(); i++) {
             Instrumento instrumento = resultado.get(i);
+            String preco = ServicoVenda.converterValor(instrumento.getPreco());
             if (instrumento != null) {
                 Object[] row = new Object[5];
                 row[0] = instrumento.getId();
                 row[1] = instrumento.getNome();
                 row[2] = instrumento.getMarca();
                 row[3] = instrumento.getQuantidade();
-                row[4] = instrumento.getPreco();
+                row[4] = preco;
                 model.addRow(row);
             }
         }
