@@ -25,7 +25,7 @@ public class ServicoCliente {
             if (nome == null || "".equals(nome)) {
                 return DAOCliente.listar();
             } else {
-                return MockCliente.procurar(nome);
+                return DAOCliente.procurar(nome);
             }
         } catch (Exception e) {
             e.printStackTrace();

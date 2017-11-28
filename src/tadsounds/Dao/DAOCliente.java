@@ -50,7 +50,7 @@ public class DAOCliente {
     }
 
     public static List<Cliente> listar() throws SQLException, Exception {
-        String sql = "SELECT * FROM Cliente WHERE(Ativo=?)";
+        String sql = "SELECT * FROM Cliente WHERE(Ativo = ?)";
         List<Cliente> listaClientes = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -59,6 +59,53 @@ public class DAOCliente {
             connection = Conexao.getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setBoolean(1, true);
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                if (listaClientes == null) {
+                    listaClientes = new ArrayList<Cliente>();
+                }
+                Cliente cliente = new Cliente();
+                cliente.setId(rs.getInt("IdCliente"));
+                cliente.setNome(rs.getString("Nome"));
+                cliente.setCpf(rs.getString("Cpf"));
+                cliente.setSexo(rs.getString("Sexo"));
+                Date data = new Date(rs.getTimestamp("DataNascimento").getTime());
+                cliente.setDataNascimento(data);
+                cliente.setEstadoCivil(rs.getString("EstadoCivil"));
+                cliente.setEndereco(rs.getString("Endereco"));
+                cliente.setNumeroEnd(rs.getString("Numero"));
+                cliente.setBairro(rs.getString("Bairro"));
+                cliente.setCidade(rs.getString("Cidade"));
+                cliente.setEstado(rs.getString("Estado"));
+                cliente.setEmail(rs.getString("Email"));
+                cliente.setTelefone(rs.getString("Telefone"));
+                listaClientes.add(cliente);
+            }
+        } finally {
+            if (rs != null && !rs.isClosed()) {
+                rs.close();
+            }
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+        return listaClientes;
+    }
+
+    public static List<Cliente> procurar(String valor) throws SQLException, Exception {
+        String sql = "SELECT * FROM Cliente WHERE Nome LIKE ? AND Ativo = ?";
+        List<Cliente> listaClientes = null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        try {
+            connection = Conexao.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, "%" + valor + "%");
+            preparedStatement.setBoolean(2, true);
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 if (listaClientes == null) {
