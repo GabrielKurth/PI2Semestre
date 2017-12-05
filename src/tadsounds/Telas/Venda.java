@@ -14,6 +14,7 @@ import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import tadsounds.Dao.DAOVenda;
 import tadsounds.Models.Cliente;
 import tadsounds.Models.Instrumento;
 import tadsounds.Models.ItemCarrinho;
@@ -644,6 +645,7 @@ public class Venda extends javax.swing.JInternalFrame {
                     tabelaClienteModel, comboPagamento, fieldRecebido, labelTroco);
             ServicoVenda.atualizarTotalLabel(tabelaCarrinhoModel, tabelaCarrinho, labelTotal);
             labelTotal.setText("00,00");
+            ItemCarrinho carrinho = new ItemCarrinho();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(),
                     "Erro de Validação", JOptionPane.ERROR_MESSAGE);

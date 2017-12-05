@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -13,19 +14,25 @@ import javax.swing.JRootPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import tadsounds.Dao.DAOVenda;
 import tadsounds.Models.Cliente;
 import tadsounds.Models.Venda;
 import tadsounds.Exceptions.DataSourceException;
 import tadsounds.Exceptions.VendaException;
 import tadsounds.Mocks.MockVenda;
+import tadsounds.Models.ItemCarrinho;
 import tadsounds.Validadores.ValidadorVenda;
 
 public class ServicoVenda {
 
     public static void fazerVenda(Venda venda) throws VendaException, DataSourceException {
         ValidadorVenda.validar(venda);
+        List<ItemCarrinho> item;
         try {
-            MockVenda.inserir(venda);
+            //MockVenda.inserir(venda);
+            DAOVenda.inserir(venda);
+            DAOVenda.inserirProdutos(venda);
+            DAOVenda.decrementoProduto(venda);
         } catch (Exception e) {
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de dados", e);
@@ -172,4 +179,3 @@ public class ServicoVenda {
     }
 
 }
-

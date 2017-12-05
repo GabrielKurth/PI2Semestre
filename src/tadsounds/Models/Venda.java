@@ -14,6 +14,13 @@ public class Venda {
     Date date;
     private int id;
 
+    @Override
+    public String toString() {
+        return "Venda{" + "cliente=" + cliente + ", carrinho=" + carrinho + ", formaPagamento=" + formaPagamento + ", total=" + total + ", date=" + date + ", id=" + id + '}';
+    }
+
+    
+    
     public Date getDate() {
         return date;
     }

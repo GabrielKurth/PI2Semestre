@@ -1,13 +1,21 @@
 package tadsounds.Models;
 
-import java.util.ArrayList;
+import tadsounds.Models.Venda;
 
 public class ItemCarrinho {
-
+    Venda venda = new Venda();
     Instrumento instrumento = new Instrumento();
     private int id;
     int quantidade;
     float subtotal;
+
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
+    }
 
     public int getQuantidade() {
         return quantidade;
@@ -32,19 +40,10 @@ public class ItemCarrinho {
     public void setInstrumento(Instrumento instrumento) {
         this.instrumento = instrumento;
     }
-
-    /**
-     * @return the id
-     */
     public int getId() {
         return id;
     }
-
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
-
 }
