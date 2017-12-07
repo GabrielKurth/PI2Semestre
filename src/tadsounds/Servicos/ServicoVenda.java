@@ -29,7 +29,7 @@ public class ServicoVenda {
         ValidadorVenda.validar(venda);
         List<ItemCarrinho> item;
         try {
-            //MockVenda.inserir(venda);
+            MockVenda.inserir(venda);
             DAOVenda.inserir(venda);
             DAOVenda.inserirProdutos(venda);
             DAOVenda.decrementoProduto(venda);
